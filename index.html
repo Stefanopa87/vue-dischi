@@ -28,7 +28,13 @@
     <div id="app" class="container vh-100">
         <div class="row h-100">
             <div class="col-12">
-                <div v-for="elem in all" class="mt-2">
+                <div>
+                    <select v-model="selected" class="w-50">
+                        <option value="" selected>Tutti</option>
+                        <option v-for="genere in generi" :value="genere">{{ genere }}</option>
+                    </select>
+                </div>
+                <div v-for="elem in filteredDischi()" class="mt-2">
                     <div style="text-align: center;">                        
                         <img :src="elem.poster" alt="copertina" style="height: 150px; width: 150px;">                        
                     </div>      

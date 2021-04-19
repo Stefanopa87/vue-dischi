@@ -17,6 +17,24 @@ function init() {
         data: {
 
             all: [],
+            generi: [],
+            selected: ''
+        },
+
+        methods: {
+            filteredDischi: function () {
+                if (this.selected == '') {
+                    return this.all;
+                }
+                let fAll = [];
+                for (let i = 0; i < this.all.length; i++) {
+                    const disco = this.all[i];
+                    if (disco.genre == this.selected) {
+                        fAll.push(disco);
+                    }
+                }
+                return fAll;
+            }
         },
 
         mounted() {
@@ -26,6 +44,18 @@ function init() {
                     let elem = data.data.response;
 
                     this.all = elem;
+
+                    // sort usato per ordine di date crescente
+                    this.all.sort((x, y) => x.year - y.year);
+
+                    // selezione di generi
+                    for (let i = 0; i < elem.length; i++) {
+                        const disco = elem[i];
+                        const genere = disco.genre;
+                        if (!this.generi.includes(genere)) {
+                            this.generi.push(genere);
+                        }
+                    }
 
                     console.log(this.all)
 
